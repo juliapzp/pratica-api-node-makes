@@ -1,4 +1,3 @@
-
 import { fastify } from 'fastify'
 import cors from '@fastify/cors'
 import { DatabasePostgres } from './database-postgres.js'
@@ -15,35 +14,35 @@ server.register(cors, {
 // ENDPOINTS (CRUD):
 
 // CREATE
-server.post('/users', async (request, reply) => {
+// 
+server.post('/makes', async (request, reply) => {
     const body = request.body;
-    await databasePostgres.createUser(body);
+    await databasePostgres.createMakes(body);
     return reply.status(201).send();
 })
 
-// READE
-server.get('/users', async () => {
-    const users = await databasePostgres.listUsers();
-    return users;
+// READ
+server.get('/makes', async () => {
+    const makes = await databasePostgres.listMakes();
+    return makes;
 });
 
 // UPDATE
-server.put('/users/:id', async (request, reply) => {
-    const userID = request.params.id;
+server.put('/makes/:id', async (request, reply) => {
+    const makesID = request.params.id;
     const body = request.body;
-    await databasePostgres.updateUser(userID, body);
+    await databasePostgres.updateMakes(makesID, body);
 
     return reply.status(204).send();
 })
 
 // DELETE
-server.delete('/users/:id', async (request, reply) => {
-    const userID = request.params.id;
-    await databasePostgres.deleteUser(userID);
+server.delete('/makes/:id', async (request, reply) => {
+    const makesID = request.params.id;
+    await databasePostgres.deleteMakes(makesID);
 
     return reply.status(204).send();
 })
-
 
 server.listen({
     port: 3333

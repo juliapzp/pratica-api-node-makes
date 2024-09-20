@@ -2,37 +2,36 @@ import { randomUUID } from "crypto";
 import { sql } from './db.js';
 
 export class DatabasePostgres { 
-  async listUsers() {
-    const users = await sql`select * from users`;
-    return users;
+  async listMakes() {
+    const makes = await sql`select * from makes`;
+    return makes;
   }
 
-  async createUser(user) {
+  async createMakes(makes) {
     const id = randomUUID();
     console.log('id', id);
-    const name = user.name;
-    const password = user.password;
-    const profile = user.profile;
+    const tipo = makes.tipo;
+    const cor = makes.cor;
+    const marca = makes.marca;
     
-    await sql`insert into users (id, name, password, profile)
-    values (${id}, ${name}, ${password}, ${profile})`
+    await sql`insert into makes (id, tipo, cor, marca)
+    values (${id}, ${tipo}, ${cor}, ${marca})`
   }
 
-  async updateUser(id, user) {
-    const name = user.name;
-    const password = user.password;
-    const profile = user.profile;
+  async updateMakes(id, makes) {
+    const tipo = makes.tipo;
+    const cor = makes.cor;
+    const marca = makes.marca;
 
-    await sql`update users set 
-        name = ${name},
-        password = ${password},
-        profile = ${profile}
+    await sql`update makes set 
+        tipo = ${tipo},
+        cor = ${cor},
+        marca = ${marca}
         where id = ${id}
     `;
   }
 
-  async deleteUser(id) {
-    await sql`delete from users where id = ${id}`
+  async deleteMakes(id) {
+    await sql`delete from makes where id = ${id}`
   }
-
 }
